@@ -148,157 +148,245 @@ namespace шашечки {
 				a++;
 			}
 		}
+		proverkanaboi();
 	}
-			 int current = 1;//1 белые -1 черные
-			 int now = 0;//1 клик
-			 int push = 0;//ничего не делает как и я
-			 int left = 1, right = 1;//диагонали слева и справа от шашки
-			 PictureBox^ t = nullptr;//пустой пикчербокс
-			 void podsvetkarightwhite(PictureBox^ sender)
-			 {
+	int now = 0, color = 1, fight = 0;//fight(podboem)
+	PictureBox^ t = nullptr;
+	void lighting(PictureBox^sender)
+	{
+		if (((PictureBox^)sender)->TabIndex + 14 <= 63)
+		{
+			if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black"))
+			{
+				if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+				{
+
+					TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+					lighting(TB2[((PictureBox^)sender)->TabIndex + 14]);
+				}
+
+			}
+		}
+	
+		if (((PictureBox^)sender)->TabIndex - 14 >= 0)
+		{
+			if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black"))
+			{
+				if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+				{
+					TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+					lighting(TB2[((PictureBox^)sender)->TabIndex - 14]);
+
+				}
+
+			}
+		}
+		if (((PictureBox^)sender)->TabIndex + 18 <= 63)
+		{
+			if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black"))
+			{
+
+				if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+				{
+
+					TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+					lighting(TB2[((PictureBox^)sender)->TabIndex + 18]);
+				}
+
+			}
+		}
+		if (((PictureBox^)sender)->TabIndex - 18 >= 0)
+		{
+			if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black"))
+			{
+
+				if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+				{
+					TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+					lighting(TB2[((PictureBox^)sender)->TabIndex - 18]);
+				}
+
+			}
+		}
+		
+
+	}
+	void proverkanaboi()
+	{
+		for (int i = 0; i < 64; i++)
+		{
+			if (TB2[i]->Text == "white")
+			{
+				if (i + 14 <= 63)
+				{
+					if ((TB2[i + 7]->Text == "black"))
+					{
+						if (TB2[i + 14]->Image == nullptr)
+						{
+							TB2[i]->TabStop = 1;
+							fight = 1;
+
+						}
+
+					}
+				}
 				
-			 }
-			 void podsvetkaleftwhite(PictureBox^ sender)
-			 {
+				if (i - 14 >= 0)
+				{
+					if ((TB2[i - 7]->Text == "black"))
+					{
+						if (TB2[i - 14]->Image == nullptr)
+						{
+							TB2[i]->TabStop = 1;
+							fight = 1;
+						}
 
-			 }
-			/* void leftdown(PictureBox^ sender)
-			 {
-				 if (((PictureBox^)sender)->Text != (TB2[left = ((PictureBox^)sender)->TabIndex + 7]->Text))//шашка сбоку др цвета слева и снизу
-				 {
-					 if (TB2[left + 7]->Image == nullptr)
-					 {
-						 TB2[left = left + 7]->BackColor = System::Drawing::Color::Blue;
-						 if (left +7 < 63)//чтобы он не выходил за пределы массива 58+7
-						 {
-							 if (TB2[left + 7]->Image != nullptr)
-							 {
-								 leftdown(TB2[left]);
-							 }
-						 }
+					}
+				}
+				if (i + 18 <= 63)
+				{
+					if ((TB2[i + 9]->Text == "black"))
+					{
 
-					 }
+						if (TB2[i + 18]->Image == nullptr)
+						{
+							TB2[i]->TabStop = 1;
+							fight = 1;
+						}
 
-				 }
-				 if (((PictureBox^)sender)->Text != (TB2[right = ((PictureBox^)sender)->TabIndex + 9]->Text))//шашка сбоку др цвета слева и снизу
-				 {
-					 if (TB2[right + 9]->Image == nullptr)
-					 {
-						 TB2[right = right + 9]->BackColor = System::Drawing::Color::Blue;
-						 if (right + 9 < 63)//чтобы он не выходил за пределы массива 58+7
-						 {
-							 if (TB2[right + 9]->Image != nullptr)
-							 {
-								 leftdown(TB2[left]);
-							 }
-						 }
+					}
+				}
+				if (i - 18 >= 0)
+				{
+					if ((TB2[i - 9]->Text == "black"))
+					{
 
-					 }
-				 }
-			 }*/
-			 /*void rightdown(PictureBox^ sender)
-			 {
-				 if (((PictureBox^)sender)->Text != (TB2[right = ((PictureBox^)sender)->TabIndex + 9]->Text))//шашка сбоку др цвета слева и снизу
-				 {
-					 if (TB2[right + 9]->Image == nullptr)
-					 {
-						 TB2[right = right + 9]->BackColor = System::Drawing::Color::Blue;
-						 if (right != 58)//чтобы он не выходил за пределы массива 58+7
-						 {
-							 if (TB2[right + 9]->Image != nullptr)
-							 {
-								 rightdown(TB2[left]);
-							 }
-						 }
+						if (TB2[i - 18]->Image == nullptr)
+						{
+							TB2[i]->TabStop = 1;
+							fight = 1;
+						}
 
-					 }
-				 }
-			 }*/
-			 void firstclick(PictureBox^ sender)
-			 {
-				 if (((PictureBox^)sender)->Image != nullptr)//пустой пикч
-				 {
-					 if (current == 1)//проверка на то что сейчас должны ходить белые
-					 {
-						 if (((PictureBox^)sender)->Text == "white")
-						 {
-							 if (((PictureBox^)sender)->TabIndex % 8 != 0)//индекс кратен 8(слева)
-							 {
-								 if (TB2[left = ((PictureBox^)sender)->TabIndex + 7]->Image != nullptr)
-								 {
-									 //rightdown((PictureBox^)sender);
-								 }
-								 if (TB2[left = ((PictureBox^)sender)->TabIndex + 7]->Image == nullptr)
-								 {
-									 TB2[left = ((PictureBox^)sender)->TabIndex + 7]->BackColor = System::Drawing::Color::Blue;//подсветочка							
-									 t = ((PictureBox^)sender);//в пустой пикч заносим тот на кот нажали
-									 now = 1;//был совершен 1 клик
-								 }
-							 }
-							 if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)//индекс кратен 7(справа)
-							 {
-								 if (TB2[right = ((PictureBox^)sender)->TabIndex + 9]->Image == nullptr)
-								 {
-									 TB2[right = ((PictureBox^)sender)->TabIndex + 9]->BackColor = System::Drawing::Color::Blue;
-									 t = ((PictureBox^)sender);//в пустой пикч заносим тот на кот нажали
-									 now = 1;//был совершен 1 клик
-								 }
-							 }
-						 }
-					 }
-					 else
-					 {
-						 if (((PictureBox^)sender)->Text == "black")
-						 {
-							 if ((((PictureBox^)sender)->TabIndex + 1 ) % 8 != 0)//индекс кратен 8(слева)
-							 {
-								 if (TB2[left = ((PictureBox^)sender)->TabIndex - 7]->Image == nullptr)
-								 {
-									 TB2[left = ((PictureBox^)sender)->TabIndex - 7]->BackColor = System::Drawing::Color::Blue;//подсветочка							
-									 t = ((PictureBox^)sender);//в пустой пикч заносим тот на кот нажали
-									 now = 1;//был совершен 1 клик
-								 }
-							 }
-							 if (((PictureBox^)sender)->TabIndex % 8 != 0)//индекс кратен 7(справа)
-							 {
-								 if (TB2[right = ((PictureBox^)sender)->TabIndex - 9]->Image == nullptr)
-								 {
-									 TB2[right = ((PictureBox^)sender)->TabIndex - 9]->BackColor = System::Drawing::Color::Blue;
-									 t = ((PictureBox^)sender);//в пустой пикч заносим тот на кот нажали
-									 now = 1;//был совершен 1 клик
-								 }
-							 }
-						 }
-					 }
-				 }
-			 }
+					}
+				}
+				
 
-			 void secondclick(PictureBox^ sender)
-			 {
-				 if (((PictureBox^)sender)->Text == t->Text) //сравнение цветов
-				 {
-					 TB2[left]->BackColor = System::Drawing::Color::DarkGray;//делаем обратно синие серыми левые
-					 TB2[right]->BackColor = System::Drawing::Color::DarkGray;//правые
-					 firstclick((PictureBox^)sender);
-				 }
-				 if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)//если текущ пикч синий то мы возможно можем сюда походить наверное александр игоревич но это не точно
-				 {
-					 		 
-					 if (((PictureBox^)sender)->Image == nullptr)//если на текущ пикч нет картинки 
-					 {
-						 //if(t->Text == ((PictureBox^)sender)->Text)
-						 ((PictureBox^)sender)->Image = t->Image;//передаем на него картинку 
-						 ((PictureBox^)sender)->Text = t->Text;//и передаем текст(цвет шашки)
-						 t->Image = nullptr;//обнуляем картинку
-						 t->Text = "";//обнуляем текст
-						 now = 0;//обнуляем клик
+			}
 
-						 TB2[left]->BackColor = System::Drawing::Color::DarkGray;//делаем обратно синие серыми левые
-						 TB2[right]->BackColor = System::Drawing::Color::DarkGray;//правые
-						 current = current*(-1);//меняется ход
-					 }
-				 }
-			 }
+		}
+	}
+	void firstclick(PictureBox^sender)
+	{
+		if (color == 1) //перебираем весь мссив пикч ищем белые слева или справа от кот стоит черн если эт о так то вызываем функцию 
+		{
+
+			if (((PictureBox^)sender)->Text == "white")
+			{
+
+				if (fight == 1)
+				{
+					if (((PictureBox^)sender)->TabStop == 1)
+					{
+						lighting((PictureBox^)sender);
+						t = ((PictureBox^)sender);
+						now = 1;
+					}
+					
+				}
+				else
+				{
+					if (((PictureBox^)sender)->TabIndex % 8 != 0)
+					{
+						if (TB2[((PictureBox^)sender)->TabIndex + 7]->Image == nullptr)
+						{
+							TB2[((PictureBox^)sender)->TabIndex + 7]->BackColor = System::Drawing::Color::Blue;
+							t = ((PictureBox^)sender);
+							now = 1;
+						}
+					}
+					if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)
+					{
+						if (TB2[((PictureBox^)sender)->TabIndex + 9]->Image == nullptr)
+						{
+							TB2[((PictureBox^)sender)->TabIndex + 9]->BackColor = System::Drawing::Color::Blue;
+							t = ((PictureBox^)sender);
+							now = 1;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			if (((PictureBox^)sender)->Text == "black")
+			{
+
+				if (fight == 1)
+				{
+					if (((PictureBox^)sender)->TabStop == 1)
+					{
+						lighting((PictureBox^)sender);
+						t = ((PictureBox^)sender);
+						now = 1;
+					}
+
+				}
+				else
+				{
+					if (((PictureBox^)sender)->TabIndex % 8 != 0)
+					{
+						if (TB2[((PictureBox^)sender)->TabIndex - 9]->Image == nullptr)
+						{
+							TB2[((PictureBox^)sender)->TabIndex - 9]->BackColor = System::Drawing::Color::Blue;
+							t = ((PictureBox^)sender);
+							now = 1;
+						}
+					}
+					if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)
+					{
+						if (TB2[((PictureBox^)sender)->TabIndex - 7]->Image == nullptr)
+						{
+							TB2[((PictureBox^)sender)->TabIndex - 7]->BackColor = System::Drawing::Color::Blue;
+							t = ((PictureBox^)sender);
+							now = 1;
+						}
+					}
+				}
+			}
+		}
+
+	};
+	void secondclick(PictureBox^sender)
+	{
+		if (((PictureBox^)sender)->Text == t->Text) 
+		{
+			TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
+			TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
+			TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
+			TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
+			firstclick((PictureBox^)sender);
+		}
+		if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
+		{
+
+			if (((PictureBox^)sender)->Image == nullptr)
+			{
+				//if(t->Text == ((PictureBox^)sender)->Text)
+				((PictureBox^)sender)->Image = t->Image;
+				((PictureBox^)sender)->Text = t->Text;
+				t->Image = nullptr;
+				t->Text = "";
+				now = 0;
+
+				TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
+				TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
+				TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
+				TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
+				color = color*(-1);
+			}
+		}
+		proverkanaboi();
+	}
 	private: System::Void pictureBox2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		if (now == 0)//кликов не было совершено
