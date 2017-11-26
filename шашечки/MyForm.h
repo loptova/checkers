@@ -162,7 +162,7 @@ namespace шашечки {
 				{
 
 					TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
-					lighting(TB2[((PictureBox^)sender)->TabIndex + 14]);
+					
 				}
 
 			}
@@ -175,7 +175,7 @@ namespace шашечки {
 				if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
 				{
 					TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
-					lighting(TB2[((PictureBox^)sender)->TabIndex - 14]);
+					
 
 				}
 
@@ -190,7 +190,7 @@ namespace шашечки {
 				{
 
 					TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
-					lighting(TB2[((PictureBox^)sender)->TabIndex + 18]);
+					
 				}
 
 			}
@@ -203,7 +203,7 @@ namespace шашечки {
 				if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
 				{
 					TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
-					lighting(TB2[((PictureBox^)sender)->TabIndex - 18]);
+					
 				}
 
 			}
@@ -358,34 +358,73 @@ namespace шашечки {
 	};
 	void secondclick(PictureBox^sender)
 	{
-		if (((PictureBox^)sender)->Text == t->Text) 
+		if (fight == 0)
 		{
-			TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
-			TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
-			TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
-			TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
-			firstclick((PictureBox^)sender);
-		}
-		if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
-		{
-
-			if (((PictureBox^)sender)->Image == nullptr)
+			if (((PictureBox^)sender)->Text == t->Text)
 			{
-				//if(t->Text == ((PictureBox^)sender)->Text)
-				((PictureBox^)sender)->Image = t->Image;
-				((PictureBox^)sender)->Text = t->Text;
-				t->Image = nullptr;
-				t->Text = "";
-				now = 0;
-
 				TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
 				TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
 				TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
 				TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
-				color = color*(-1);
+				firstclick((PictureBox^)sender);
+			}
+			if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
+			{
+
+				if (((PictureBox^)sender)->Image == nullptr)
+				{
+					//if(t->Text == ((PictureBox^)sender)->Text)
+					((PictureBox^)sender)->Image = t->Image;
+					((PictureBox^)sender)->Text = t->Text;
+					t->Image = nullptr;
+					t->Text = "";
+					now = 0;
+
+					TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
+					TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
+					TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
+			//		TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
+					color = color*(-1);
+				}
 			}
 		}
+		if (fight == 1)
+		{
+			if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
+			{
+
+				if (((PictureBox^)sender)->Image == nullptr)
+				{
+					//if(t->Text == ((PictureBox^)sender)->Text)
+					((PictureBox^)sender)->Image = t->Image;
+					((PictureBox^)sender)->Text = t->Text;
+					t->Image = nullptr;
+					t->Text = "";
+					
+					TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Image = nullptr;
+					TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Text = "";
+				//	TB2[t->TabIndex + 14]->BackColor = System::Drawing::Color::DarkGray;
+				//	TB2[t->TabIndex - 14]->BackColor = System::Drawing::Color::DarkGray;
+				//  TB2[t->TabIndex + 18]->BackColor = System::Drawing::Color::DarkGray;
+				//	TB2[t->TabIndex - 18]->BackColor = System::Drawing::Color::DarkGray;
+					fight = 0;
+					proverkanaboi();
+					if (fight != 1)
+					{
+						color = color*(-1);
+						now = 0;
+					}
+					else
+					{
+						t = ((PictureBox^)sender);
+						lighting(t);
+					}
+				}
+			}
+		}
+		fight = 0;
 		proverkanaboi();
+		
 	}
 	private: System::Void pictureBox2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
