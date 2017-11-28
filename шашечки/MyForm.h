@@ -11,7 +11,7 @@ namespace шашечки {
 	using namespace System::Drawing::Imaging;
 
 	/// <summary> 
-	/// —водка дл€ MyForm 
+
 	/// </summary> 
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -20,13 +20,13 @@ namespace шашечки {
 		{
 			InitializeComponent();
 			// 
-			//TODO: добавьте код конструктора 
+
 			// 
 		}
 
 	protected:
 		/// <summary> 
-		/// ќсвободить все используемые ресурсы. 
+
 		/// </summary> 
 		~MyForm()
 		{
@@ -50,14 +50,13 @@ namespace шашечки {
 
 	private:
 		/// <summary> 
-		/// ќб€зательна€ переменна€ конструктора. 
+
 		/// </summary> 
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code 
 		/// <summary> 
-		/// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте 
-		/// содержимое этого метода с помощью редактора кода. 
+
 		/// </summary> 
 		void InitializeComponent(void)
 		{
@@ -84,7 +83,7 @@ namespace шашечки {
 			this->Controls->Add(this->button2);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Name = L"MyForm";
-			this->Text = L"шашки шашечки";
+			this->Text = L"qweqwe";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 
@@ -97,15 +96,15 @@ namespace шашечки {
 	{
 		int a = 0;
 
-		for (int i = 0; i < 8; i++)//строки
+		for (int i = 0; i < 8; i++)
 		{
-			for (int j = 0; j < 8; j++)//столбцы
+			for (int j = 0; j < 8; j++)
 			{
 				TB2[a] = gcnew PictureBox();
 				this->Controls->Add(TB2[a]);
-				if (i % 2 == 0)//если строка чет
+				if (i % 2 == 0)
 				{
-					if (j % 2 == 0)//если столбец чет
+					if (j % 2 == 0)
 					{
 						TB2[a]->BackColor = System::Drawing::Color::White;
 					}
@@ -114,7 +113,7 @@ namespace шашечки {
 						TB2[a]->BackColor = System::Drawing::Color::DarkGray;
 					}
 				}
-				else//если строка нечет
+				else
 				{
 					if (j % 2 == 0)
 					{
@@ -126,7 +125,7 @@ namespace шашечки {
 					}
 				}
 				TB2[a]->Size = System::Drawing::Size(55, 55);
-				TB2[a]->TabIndex = a; //номера клеток 
+				TB2[a]->TabIndex = a;
 				TB2[a]->TabStop = false;
 				TB2[a]->Location = Point(5 + j * 55, 5 + i * 55);
 				TB2[a]->SizeMode = PictureBoxSizeMode::StretchImage;
@@ -148,594 +147,459 @@ namespace шашечки {
 				a++;
 			}
 		}
-		//proverkanaboi();
 	}
-	int now = 0, color = 1, fight = 0;//fight(podboem)
-	PictureBox^ t = nullptr;
-	void allgray()
-	{
-		for (int i = 0; i < 64; i++)
-		{
-			if (TB2[i] -> BackColor == System::Drawing::Color::Blue)
-			{
-				TB2[i]->BackColor = System::Drawing::Color::DarkGray;
-			}
-		}
-	}
+
+			 int now = 0, color = 1, fight = 0;//fight(podboem)
+			 PictureBox^ t = nullptr;
+
+			 void allgray()
+			 {
+				 for (int i = 0; i < 64; i++)
+				 {
+					 if (TB2[i]->BackColor == System::Drawing::Color::Blue)
+					 {
+						 TB2[i]->BackColor = System::Drawing::Color::DarkGray;
+					 }
+					 // TB2[i]->TabStop = 0;
+				 }
+			 }
+
+			 void lighting(PictureBox^sender)
+			 {
+				 if (((PictureBox^)sender)->Text == "white")
+				 {
+					 if (((PictureBox^)sender)->TabIndex + 14 <= 63)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+							 }
+						 }
+					 }
+
+					 if (((PictureBox^)sender)->TabIndex - 14 >= 0)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+							 }
+
+						 }
+					 }
+					 if (((PictureBox^)sender)->TabIndex + 18 <= 63)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+							 }
+
+						 }
+					 }
+					 if (((PictureBox^)sender)->TabIndex - 18 >= 0)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+							 }
+						 }
+					 }
+				 }
+
+				 if (((PictureBox^)sender)->Text == "black")
+				 {
+					 if (((PictureBox^)sender)->TabIndex + 14 <= 63)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "white"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+							 }
+						 }
+					 }
+
+					 if (((PictureBox^)sender)->TabIndex - 14 >= 0)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "white"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+							 }
+
+						 }
+					 }
+					 if (((PictureBox^)sender)->TabIndex + 18 <= 63)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "white"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+							 }
+
+						 }
+					 }
+					 if (((PictureBox^)sender)->TabIndex - 18 >= 0)
+					 {
+						 if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "white"))
+						 {
+							 if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+							 {
+								 TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+							 }
+						 }
+					 }
+				 }
+			 }
+
+			 void proverkanaboiblack()
+			 {
+				 for (int i = 0; i < 64; i++)
+				 {
+					 if (TB2[i]->Text == "black")
+					 {
+						 if ((i < 47) && (i % 8 != 0))
+						 {
+							 if ((i + 7) % 8 != 0)
+							 {
+								 if ((TB2[i + 7]->Text == "white"))
+								 {
+									 if (TB2[i + 14]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+						 if (i > 16 && ((i + 1) % 8 != 0))
+						 {
+							 if ((TB2[i - 7]->Text == "white"))
+							 {
+								 if ((i - 6) % 8 != 0)
+								 {
+									 if (TB2[i - 14]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+						 if ((i < 47) && ((i + 1) % 8 != 0))
+						 {
+							 if ((TB2[i + 9]->Text == "white"))
+							 {
+								 if ((i + 10) % 8 != 0)
+								 {
+									 if (TB2[i + 18]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+						 if ((i > 16) && (i % 8 != 0))
+						 {
+							 if ((TB2[i - 9]->Text == "white"))
+							 {
+								 if ((i - 9) % 8 != 0)
+								 {
+									 if (TB2[i - 18]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+					 }
+				 }
+
+			 }
+
+			 void proverkanaboiwhite()
+			 {
+				 for (int i = 0; i < 64; i++)
+				 {
+					 if (TB2[i]->Text == "white")
+					 {
+						 if ((i < 47) && (i % 8 != 0))
+						 {
+							 if ((i + 7) % 8 != 0)
+							 {
+								 if ((TB2[i + 7]->Text == "black"))
+								 {
+									 if (TB2[i + 14]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+						 if (i > 16 && ((i + 1) % 8 != 0))
+						 {
+							 if ((TB2[i - 7]->Text == "black"))
+							 {
+								 if ((i - 6) % 8 != 0)
+								 {
+									 if (TB2[i - 14]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+						 if ((i < 47) && ((i + 1) % 8 != 0))
+						 {
+							 if ((TB2[i + 9]->Text == "black"))
+							 {
+								 if ((i + 10) % 8 != 0)
+								 {
+									 if (TB2[i + 18]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+						 if ((i > 16) && (i % 8 != 0))
+						 {
+							 if ((TB2[i - 9]->Text == "black"))
+							 {
+								 if ((i - 9) % 8 != 0)
+								 {
+									 if (TB2[i - 18]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+									 }
+								 }
+							 }
+						 }
+					 }
+				 }
+			 }
+
+			 void firstclick(PictureBox^sender)
+			 {
+				 if (color == 1)
+				 {
+					 if (((PictureBox^)sender)->Text == "white")
+					 {
+						 if (fight == 1)
+						 {
+							 if (((PictureBox^)sender)->TabStop == 1)
+							 {
+								 lighting((PictureBox^)sender);
+								 t = ((PictureBox^)sender);
+								 now = 1;
+							 }
+						 }
+						 else
+						 {
+							 if (((PictureBox^)sender)->TabIndex < 56)
+							 {
+								 if (((PictureBox^)sender)->TabIndex % 8 != 0)
+								 {
+									 if (TB2[((PictureBox^)sender)->TabIndex + 7]->Image == nullptr)
+									 {
+										 TB2[((PictureBox^)sender)->TabIndex + 7]->BackColor = System::Drawing::Color::Blue;
+										 t = ((PictureBox^)sender);
+										 now = 1;
+									 }
+								 }
+								 if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)
+								 {
+									 if (TB2[((PictureBox^)sender)->TabIndex + 9]->Image == nullptr)
+									 {
+										 TB2[((PictureBox^)sender)->TabIndex + 9]->BackColor = System::Drawing::Color::Blue;
+										 t = ((PictureBox^)sender);
+										 now = 1;
+									 }
+								 }
+							 }
+						 }
+					 }
+				 }
+				 else
+				 {
+					 if (((PictureBox^)sender)->Text == "black")
+					 {
+
+						 if (fight == 1)
+						 {
+							 if (((PictureBox^)sender)->TabStop == 1)
+							 {
+								 lighting((PictureBox^)sender);
+								 t = ((PictureBox^)sender);
+								 now = 1;
+							 }
+
+						 }
+						 else
+						 {
+							 if (((PictureBox^)sender)->TabIndex > 7)
+							 {
+								 if (((PictureBox^)sender)->TabIndex % 8 != 0)
+								 {
+									 if (TB2[((PictureBox^)sender)->TabIndex - 9]->Image == nullptr)
+									 {
+										 TB2[((PictureBox^)sender)->TabIndex - 9]->BackColor = System::Drawing::Color::Blue;
+										 t = ((PictureBox^)sender);
+										 now = 1;
+									 }
+								 }
+								 if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)
+								 {
+									 if (TB2[((PictureBox^)sender)->TabIndex - 7]->Image == nullptr)
+									 {
+										 TB2[((PictureBox^)sender)->TabIndex - 7]->BackColor = System::Drawing::Color::Blue;
+										 t = ((PictureBox^)sender);
+										 now = 1;
+									 }
+								 }
+							 }
+						 }
+					 }
+				 }
+			 };
+
+			 void secondclick(PictureBox^sender)
+			 {
+				 if (fight == 0)
+				 {
+					 if (((PictureBox^)sender)->Text == t->Text)
+					 {
+						 allgray();
+						 firstclick((PictureBox^)sender);
+					 }
+					 if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
+					 {
+
+						 if (((PictureBox^)sender)->Image == nullptr)
+						 {
 	
-	void lighting(PictureBox^sender)
-	{
-		if (((PictureBox^)sender)->Text == "white")
-		{
-			if (((PictureBox^)sender)->TabIndex + 14 <= 63)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black"))
-				{
-					if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
-					{
+							 ((PictureBox^)sender)->Image = t->Image;
+							 ((PictureBox^)sender)->Text = t->Text;
+							 t->Image = nullptr;
+							 t->Text = "";
+							 now = 0;
+							 color = color*(-1);
+							 allgray();
+							 if (color == 1)
+							 {
+								 if (((PictureBox^)sender)->TabIndex < 8)
+								 {
+									 ((PictureBox^)sender)->Text = "black1";
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Desktop/images/black11.png");
+								 }
+								 proverkanaboiwhite();
+							 }
+							 else
+							 {
+								 if (((PictureBox^)sender)->TabIndex > 55)
+								 {
+									 ((PictureBox^)sender)->Text = "white1";
+									 ((PictureBox^)sender)-> Image = Image::FromFile("C:/Users/user/Desktop/images/white11.png");
 
-						TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+								 }
+								 proverkanaboiblack();
+							 }
+						 }
+					 }
+				 }
 
-					}
+				 if (fight == 1)
+				 {
+					 if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
+					 {
 
-				}
-			}
+						 if (((PictureBox^)sender)->Image == nullptr)
+						 {
+							 ((PictureBox^)sender)->Image = t->Image;
+							 ((PictureBox^)sender)->Text = t->Text;
+							 t->Image = nullptr;
+							 t->Text = "";
 
-			if (((PictureBox^)sender)->TabIndex - 14 >= 0)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black"))
-				{
-					if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
-					{
-						TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+							 TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Image = nullptr;
+							 TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Text = "";
+							 fight = 0;
 
+							 if (color == 1)
+							 {
+								 proverkanaboiwhite();
+								 if (fight != 1)
+								 {
+									 if (((PictureBox^)sender)->TabIndex > 55)
+									 {
+										 ((PictureBox^)sender)->Text = "white1";
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Desktop/images/white11.png");
 
-					}
+									 }
+									 color = color*(-1);
+									 now = 0;
+									 allgray();
+									 proverkanaboiblack();
+								 }
+								 else
+								 {
+									 if (((PictureBox^)sender)->TabIndex > 55)
+									 {
+										 ((PictureBox^)sender)->Text = "white1";
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Desktop/images/white11.png");
 
-				}
-			}
-			if (((PictureBox^)sender)->TabIndex + 18 <= 63)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black"))
-				{
+									 }
+									 t = ((PictureBox^)sender);
+									 t->BackColor = System::Drawing::Color::DarkGray;
+									 lighting(t);
+								 }
+							 }
+							 else
+							 {
+								 proverkanaboiblack();
+								 if (fight != 1)
+								 {
+									 color = color*(-1);
+									 now = 0;
+									 allgray();
+									 proverkanaboiwhite();
+								 }
+								 else
+								 {
+									 t = ((PictureBox^)sender);
+									 t->BackColor = System::Drawing::Color::DarkGray;
+									 lighting(t);
+								 }
+							 }
+						 }
+					 }
+				 }
+			 }
 
-					if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
-					{
-
-						TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
-
-					}
-
-				}
-			}
-			if (((PictureBox^)sender)->TabIndex - 18 >= 0)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black"))
-				{
-
-					if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
-					{
-						TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
-
-					}
-
-				}
-			}
-		}
-		
-		if (((PictureBox^)sender)->Text == "black")
-		{
-			if (((PictureBox^)sender)->TabIndex + 14 <= 63)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black"))
-				{
-					if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
-					{
-
-						TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
-
-					}
-
-				}
-			}
-
-			if (((PictureBox^)sender)->TabIndex - 14 >= 0)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black"))
-				{
-					if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
-					{
-						TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
-
-
-					}
-
-				}
-			}
-			if (((PictureBox^)sender)->TabIndex + 18 <= 63)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black"))
-				{
-
-					if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
-					{
-
-						TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
-
-					}
-
-				}
-			}
-			if (((PictureBox^)sender)->TabIndex - 18 >= 0)
-			{
-				if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black"))
-				{
-
-					if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
-					{
-						TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
-
-					}
-
-				}
-			}
-		}
-
-	}
-	void proverkanaboiblack()
-	{
-		for (int i = 0; i < 64; i++)
-		{
-			if (TB2[i]->Text == "black")
-			{
-				if ((i < 47) && (i % 8 != 0))
-				{
-					if ((i + 7) % 8 != 0)
-					{
-						if ((TB2[i + 7]->Text == "white"))
-						{
-							if (TB2[i + 14]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-				if (i > 16 && ((i + 1) % 8 != 0))
-				{
-					if ((TB2[i - 7]->Text == "white"))
-					{
-						if ((i - 6) % 8 != 0)
-						{
-							if (TB2[i - 14]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-				if ((i < 47) && ((i + 1) % 8 != 0))
-				{
-					if ((TB2[i + 9]->Text == "white"))
-					{
-						if ((i + 10) % 8 != 0)
-						{
-							if (TB2[i + 18]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-				if ((i > 16) && (i % 8 != 0))
-				{
-					if ((TB2[i - 9]->Text == "white"))
-					{
-						if ((i - 9) % 8 != 0)
-						{
-							if (TB2[i - 18]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-			}
-		}
-
-	}
-
-	void proverkanaboiwhite()
-	{
-		for (int i = 0; i < 64; i++)
-		{
-			if (TB2[i]->Text == "white")
-			{
-				if ((i < 47) && (i % 8 != 0))
-				{
-					if ((i + 7) % 8 != 0)
-					{
-						if ((TB2[i + 7]->Text == "black"))
-						{
-							if (TB2[i + 14]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-				if (i > 16 && ((i + 1) % 8 != 0))
-				{
-					if ((TB2[i - 7]->Text == "black"))
-					{
-						if ((i - 6) % 8 != 0)
-						{
-							if (TB2[i - 14]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-				if ((i < 47) && ((i + 1) % 8 != 0))
-				{
-					if ((TB2[i + 9]->Text == "black"))
-					{
-						if ((i + 10) % 8 != 0)
-						{
-							if (TB2[i + 18]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-				if ((i > 16) && (i % 8 != 0))
-				{
-					if ((TB2[i - 9]->Text == "black"))
-					{
-						if ((i - 9) % 8 != 0)
-						{
-							if (TB2[i - 18]->Image == nullptr)
-							{
-								TB2[i]->TabStop = 1;
-								fight = 1;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	/*void proverkanaboi()
-	{
-		for (int i = 0; i < 64; i++)
-		{
-			if (TB2[i]->Text == "white")
-			{
-				if (i + 14 <= 63)
-				{
-					if ((TB2[i + 7]->Text == "black"))
-					{
-						if (TB2[i + 14]->Image == nullptr)
-						{
-							TB2[i]->TabStop = 1;
-							fight = 1;
-
-						}
-
-					}
-				}
-				
-				if (i - 14 >= 0)
-				{
-					if ((TB2[i - 7]->Text == "black"))
-					{
-						if (TB2[i - 14]->Image == nullptr)
-						{
-							TB2[i]->TabStop = 1;
-							fight = 1;
-						}
-
-					}
-				}
-				if (i + 18 <= 63)
-				{
-					if ((TB2[i + 9]->Text == "black"))
-					{
-
-						if (TB2[i + 18]->Image == nullptr)
-						{
-							TB2[i]->TabStop = 1;
-							fight = 1;
-						}
-
-					}
-				}
-				if (i - 18 >= 0)
-				{
-					if ((TB2[i - 9]->Text == "black"))
-					{
-
-						if (TB2[i - 18]->Image == nullptr)
-						{
-							TB2[i]->TabStop = 1;
-							fight = 1;
-						}
-
-					}
-				}
-				
-
-			}
-
-		}
-	}*/
-	void firstclick(PictureBox^sender)
-	{
-		if (color == 1) //перебираем весь мссив пикч ищем белые слева или справа от кот стоит черн если эт о так то вызываем функцию 
-		{
-
-			if (((PictureBox^)sender)->Text == "white")
-			{
-
-				if (fight == 1)
-				{
-					if (((PictureBox^)sender)->TabStop == 1)
-					{
-						lighting((PictureBox^)sender);
-						t = ((PictureBox^)sender);
-						now = 1;
-					}
-					
-				}
-				else
-				{
-					if (((PictureBox^)sender)->TabIndex < 56)
-					{
-						if (((PictureBox^)sender)->TabIndex % 8 != 0)
-						{
-							if (TB2[((PictureBox^)sender)->TabIndex + 7]->Image == nullptr)
-							{
-								TB2[((PictureBox^)sender)->TabIndex + 7]->BackColor = System::Drawing::Color::Blue;
-								t = ((PictureBox^)sender);
-								now = 1;
-							}
-						}
-						if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)
-						{
-							if (TB2[((PictureBox^)sender)->TabIndex + 9]->Image == nullptr)
-							{
-								TB2[((PictureBox^)sender)->TabIndex + 9]->BackColor = System::Drawing::Color::Blue;
-								t = ((PictureBox^)sender);
-								now = 1;
-							}
-						}
-					}
-					
-				}
-			}
-		}
-		else
-		{
-			if (((PictureBox^)sender)->Text == "black")
-			{
-
-				if (fight == 1)
-				{
-					if (((PictureBox^)sender)->TabStop == 1)
-					{
-						lighting((PictureBox^)sender);
-						t = ((PictureBox^)sender);
-						now = 1;
-					}
-
-				}
-				else
-				{
-					if (((PictureBox^)sender)->TabIndex > 7)
-					{
-						if (((PictureBox^)sender)->TabIndex % 8 != 0)
-						{
-							if (TB2[((PictureBox^)sender)->TabIndex - 9]->Image == nullptr)
-							{
-								TB2[((PictureBox^)sender)->TabIndex - 9]->BackColor = System::Drawing::Color::Blue;
-								t = ((PictureBox^)sender);
-								now = 1;
-							}
-						}
-						if ((((PictureBox^)sender)->TabIndex + 1) % 8 != 0)
-						{
-							if (TB2[((PictureBox^)sender)->TabIndex - 7]->Image == nullptr)
-							{
-								TB2[((PictureBox^)sender)->TabIndex - 7]->BackColor = System::Drawing::Color::Blue;
-								t = ((PictureBox^)sender);
-								now = 1;
-							}
-						}
-					}
-					
-				}
-			}
-		}
-
-	};
-	/*void secondclick(PictureBox^sender)
-	{
-		if (fight == 0)
-		{
-			if (((PictureBox^)sender)->Text == t->Text)
-			{
-				TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
-				TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
-				TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
-				TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
-				firstclick((PictureBox^)sender);
-			}
-			if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
-			{
-
-				if (((PictureBox^)sender)->Image == nullptr)
-				{
-					//if(t->Text == ((PictureBox^)sender)->Text)
-					((PictureBox^)sender)->Image = t->Image;
-					((PictureBox^)sender)->Text = t->Text;
-					t->Image = nullptr;
-					t->Text = "";
-					now = 0;
-
-					TB2[t->TabIndex + 7]->BackColor = System::Drawing::Color::DarkGray;
-					TB2[t->TabIndex - 7]->BackColor = System::Drawing::Color::DarkGray;
-					TB2[t->TabIndex + 9]->BackColor = System::Drawing::Color::DarkGray;
-			//		TB2[t->TabIndex - 9]->BackColor = System::Drawing::Color::DarkGray;
-					color = color*(-1);
-				}
-			}
-		}
-		if (fight == 1)
-		{
-			if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
-			{
-
-				if (((PictureBox^)sender)->Image == nullptr)
-				{
-					//if(t->Text == ((PictureBox^)sender)->Text)
-					((PictureBox^)sender)->Image = t->Image;
-					((PictureBox^)sender)->Text = t->Text;
-					t->Image = nullptr;
-					t->Text = "";
-					
-					TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Image = nullptr;
-					TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Text = "";
-				//	TB2[t->TabIndex + 14]->BackColor = System::Drawing::Color::DarkGray;
-				//	TB2[t->TabIndex - 14]->BackColor = System::Drawing::Color::DarkGray;
-				//  TB2[t->TabIndex + 18]->BackColor = System::Drawing::Color::DarkGray;
-				//	TB2[t->TabIndex - 18]->BackColor = System::Drawing::Color::DarkGray;
-					fight = 0;
-					proverkanaboi();
-					if (fight != 1)
-					{
-						color = color*(-1);
-						now = 0;
-					}
-					else
-					{
-						t = ((PictureBox^)sender);
-						lighting(t);
-					}
-				}
-			}
-		}
-		fight = 0;
-		proverkanaboi();
-		
-	}*/
-	void secondclick(PictureBox^sender)
-	{
-		if (fight == 0)
-		{
-			if (((PictureBox^)sender)->Text == t->Text)
-			{
-				allgray();
-				firstclick((PictureBox^)sender);
-			}
-			if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
-			{
-
-				if (((PictureBox^)sender)->Image == nullptr)
-				{
-					((PictureBox^)sender)->Image = t->Image;
-					((PictureBox^)sender)->Text = t->Text;
-					t->Image = nullptr;
-					t->Text = "";
-					now = 0;
-					color = color*(-1);
-					allgray();
-					if (color == 1)
-					{
-						proverkanaboiwhite();
-					}
-					else
-					{
-						proverkanaboiblack();
-					}
-				}
-			}
-		}
-
-		if (fight == 1)
-		{
-			if (((PictureBox^)sender)->BackColor == System::Drawing::Color::Blue)
-			{
-
-				if (((PictureBox^)sender)->Image == nullptr)
-				{
-					((PictureBox^)sender)->Image = t->Image;
-					((PictureBox^)sender)->Text = t->Text;
-					t->Image = nullptr;
-					t->Text = "";
-
-					TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Image = nullptr;
-					TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Text = "";
-					fight = 0;
-
-					if (color == 1)
-					{
-						proverkanaboiwhite();
-						if (fight != 1)
-						{
-							color = color*(-1);
-							now = 0;
-							allgray();
-							proverkanaboiblack();
-						}
-						else
-						{
-							t = ((PictureBox^)sender);
-							t->BackColor = System::Drawing::Color::DarkGray;
-							lighting(t);
-						}
-					}
-					else
-					{
-						proverkanaboiblack();
-						if (fight != 1)
-						{
-							color = color*(-1);
-							now = 0;
-							allgray();
-							proverkanaboiwhite();
-						}
-						else
-						{
-							t = ((PictureBox^)sender);
-							t->BackColor = System::Drawing::Color::DarkGray;
-							lighting(t);
-						}
-					}
-				}
-			}
-		}
-	}
 	private: System::Void pictureBox2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
-		if (now == 0)//кликов не было совершено
+		if (now == 0)
 		{
 			firstclick((PictureBox^)sender);
 		}
 		else
 		{
 			secondclick((PictureBox^)sender);
-
 		}
-
 	}
 	};
 }
