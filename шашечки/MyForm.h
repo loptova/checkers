@@ -327,7 +327,7 @@ namespace шашечки {
 
 			 void lightingdamkacanfight(PictureBox^sender)
 			 {
-				
+
 				 if (((PictureBox^)sender)->TabStop == 1)
 				 {
 					 int a = 1;
@@ -335,16 +335,16 @@ namespace шашечки {
 					 while (i < 56 && i % 8 != 0 && a)
 					 {
 						 i = i + 7;
-						 if (TB2[i]->Text != "white1")
+						 if (TB2[i]->Text != "white1" && TB2[i]->Text != "white")
 						 {
 							 if (i % 8 != 0 && i < 56)
 							 {
-								 if (TB2[i]->Text == "black")
+								 if (TB2[i]->Text == "black" || TB2[i]->Text == "black1")
 								 {
 									 if (TB2[i + 7]->Image == nullptr)
 									 {
 										 i = i + 7;
-										 while (TB2[i]->Text != "black" && a && TB2[i]->Text != "white1")
+										 while (TB2[i]->Text != "black" && a && TB2[i]->Text != "white1" && TB2[i]->Text != "white" && TB2[i]->Text != "black1")
 										 {
 											 TB2[i]->BackColor = System::Drawing::Color::Blue;
 											 if (i % 8 == 0 || i >= 56)
@@ -454,7 +454,7 @@ namespace шашечки {
 						 {
 							 a = 0;
 						 }
-					 }                       
+					 }
 					 a = 1;
 					 i = ((PictureBox^)sender)->TabIndex;
 					 while (i > 7 && i % 8 != 0 && a)
@@ -564,7 +564,7 @@ namespace шашечки {
 				 }
 
 			 }
-		
+
 			 void proverkanaboiwhite()
 			 {
 				 for (int i = 0; i < 64; i++)
@@ -646,7 +646,7 @@ namespace шашечки {
 								 {
 									 if (d % 8 != 0)
 									 {
-										 if ((TB2[d]->Text == "black"))
+										 if (TB2[d]->Text == "black" || TB2[d]->Text == "black1")
 										 {
 											 if (TB2[d + 7]->Image == nullptr)
 											 {
@@ -677,25 +677,18 @@ namespace шашечки {
 								 }
 								 else
 								 {
-									 if ((d - 6) % 8 != 0)
+									 if ((TB2[d]->Text == "black" || TB2[d]->Text == "black1"))
 									 {
-										 if ((TB2[d]->Text == "black"))
+										 if (TB2[d - 7]->Image == nullptr)
 										 {
-											 if (TB2[d - 7]->Image == nullptr)
-											 {
-												 TB2[i]->TabStop = 1;
-												 fight = 1;
-												 a = 0;
-											 }
-											 else
-											 {
-												 a = 0;
-											 }
+											 TB2[i]->TabStop = 1;
+											 fight = 1;
+											 a = 0;
 										 }
-									 }
-									 else
-									 {
-										 a = 0;
+										 else
+										 {
+											 a = 0;
+										 }
 									 }
 								 }
 							 }
@@ -718,22 +711,21 @@ namespace шашечки {
 								 }
 								 else
 								 {
-									 if ((d + 10) % 8 != 0)// исправить на 1
+
+									 if (TB2[d]->Text == "black" || TB2[d]->Text == "black1")
 									 {
-										 if ((TB2[d]->Text == "black"))
+										 if (TB2[d + 9]->Image == nullptr)
 										 {
-											 if (TB2[d + 9]->Image == nullptr)
-											 {
-												 TB2[i]->TabStop = 1;
-												 fight = 1;
-												 a = 0;
-											 }
-											 else
-											 {
-												 a = 0;
-											 }
+											 TB2[i]->TabStop = 1;
+											 fight = 1;
+											 a = 0;
+										 }
+										 else
+										 {
+											 a = 0;
 										 }
 									 }
+
 								 }
 							 }
 						 }
@@ -751,22 +743,21 @@ namespace шашечки {
 								 }
 								 else
 								 {
-									 if ((d - 9) % 8 != 0)
+
+									 if (TB2[d]->Text == "black" || TB2[d]->Text == "black1")
 									 {
-										 if ((TB2[d]->Text == "black"))
+										 if (TB2[d - 9]->Image == nullptr)
 										 {
-											 if (TB2[d - 9]->Image == nullptr)
-											 {
-												 TB2[i]->TabStop = 1;
-												 fight = 1;
-												 a = 0;
-											 }
-											 else
-											 {
-												 a = 0;
-											 }
+											 TB2[i]->TabStop = 1;
+											 fight = 1;
+											 a = 0;
+										 }
+										 else
+										 {
+											 a = 0;
 										 }
 									 }
+
 								 }
 							 }
 						 }
@@ -774,7 +765,210 @@ namespace шашечки {
 					 }
 				 }
 			 }
-		
+
+			 void  proverkanaboisender(PictureBox^sender)
+			 {
+				 int i = ((PictureBox^)sender)->TabIndex;
+				 if (TB2[i]->Text == "white")
+				 {
+					 if ((i < 47) && (i % 8 != 0))
+					 {
+						 if ((i + 7) % 8 != 0)
+						 {
+							 if ((TB2[i + 7]->Text == "black") || (TB2[i + 7]->Text == "black1"))
+							 {
+								 if (TB2[i + 14]->Image == nullptr)
+								 {
+									 TB2[i]->TabStop = 1;
+									 fight = 1;
+								 }
+							 }
+						 }
+					 }
+					 i = ((PictureBox^)sender)->TabIndex;
+					 if (i > 16 && ((i + 1) % 8 != 0))
+					 {
+						 if ((TB2[i - 7]->Text == "black" || (TB2[i - 7]->Text == "black1")))
+						 {
+							 if ((i - 6) % 8 != 0)
+							 {
+								 if (TB2[i - 14]->Image == nullptr)
+								 {
+									 TB2[i]->TabStop = 1;
+									 fight = 1;
+								 }
+							 }
+						 }
+					 }
+					 i = ((PictureBox^)sender)->TabIndex;
+					 if ((i < 47) && ((i + 1) % 8 != 0))
+					 {
+						 if ((TB2[i + 9]->Text == "black") || (TB2[i + 9]->Text == "black1"))
+						 {
+							 if ((i + 10) % 8 != 0)
+							 {
+								 if (TB2[i + 18]->Image == nullptr)
+								 {
+									 TB2[i]->TabStop = 1;
+									 fight = 1;
+								 }
+							 }
+						 }
+					 }
+					 i = ((PictureBox^)sender)->TabIndex;
+					 if ((i > 16) && (i % 8 != 0))
+					 {
+						 if ((TB2[i - 9]->Text == "black") || (TB2[i - 9]->Text == "black1"))
+						 {
+							 if ((i - 9) % 8 != 0)
+							 {
+								 if (TB2[i - 18]->Image == nullptr)
+								 {
+									 TB2[i]->TabStop = 1;
+									 fight = 1;
+								 }
+							 }
+						 }
+					 }
+				 }
+				 i = ((PictureBox^)sender)->TabIndex;
+				 if (TB2[i]->Text == "white1")
+				 {
+					 int d = i;
+					 int a = 1;
+					 while (d < 47 && d % 8 != 0 && a)
+					 {
+						 d = d + 7;
+						 if (d % 8 != 0)
+						 {
+							 if (TB2[d]->Text == "white1" || TB2[d]->Text == "white")
+							 {
+								 a = 0;
+							 }
+							 else
+							 {
+								 if (d % 8 != 0)
+								 {
+									 if (TB2[d]->Text == "black" || TB2[d]->Text == "black1")
+									 {
+										 if (TB2[d + 7]->Image == nullptr)
+										 {
+											 TB2[i]->TabStop = 1;
+											 fight = 1;
+											 a = 0;
+										 }
+										 else
+										 {
+											 a = 0;
+										 }
+									 }
+								 }
+							 }
+						 }
+					 }
+					 i = ((PictureBox^)sender)->TabIndex;
+					 d = i;
+					 a = 1;
+
+					 while (d > 16 && (d + 1) % 8 != 0 && a)
+					 {
+						 d = d - 7;
+						 if ((d + 1) % 8 != 0)
+						 {
+							 if (TB2[d]->Text == "white1" || TB2[d]->Text == "white")
+							 {
+								 a = 0;
+							 }
+							 else
+							 {
+								 if ((TB2[d]->Text == "black" || TB2[d]->Text == "black1"))
+								 {
+									 if (TB2[d - 7]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+										 a = 0;
+									 }
+									 else
+									 {
+										 a = 0;
+									 }
+								 }
+							 }
+						 }
+						 else
+						 {
+							 a = 0;
+						 }
+					 }
+					 i = ((PictureBox^)sender)->TabIndex;
+					 d = i;
+					 a = 1;
+					 while (d < 47 && (d + 1) % 8 != 0 && a)
+					 {
+						 d = d + 9;
+						 if ((d + 1) % 8 != 0)
+						 {
+							 if (TB2[d]->Text == "white1" || TB2[d]->Text == "white")
+							 {
+								 a = 0;
+							 }
+							 else
+							 {
+
+								 if (TB2[d]->Text == "black" || TB2[d]->Text == "black1")
+								 {
+									 if (TB2[d + 9]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+										 a = 0;
+									 }
+									 else
+									 {
+										 a = 0;
+									 }
+								 }
+
+							 }
+						 }
+					 }
+					 i = ((PictureBox^)sender)->TabIndex;
+					 d = i;
+					 a = 1;
+					 while (d > 16 && d % 8 != 0 && a)
+					 {
+						 d = d - 9;
+						 if (d % 8 != 0)
+						 {
+							 if (TB2[d]->Text == "white1" || TB2[d]->Text == "white")
+							 {
+								 a = 0;
+							 }
+							 else
+							 {
+
+								 if (TB2[d]->Text == "black" || TB2[d]->Text == "black1")
+								 {
+									 if (TB2[d - 9]->Image == nullptr)
+									 {
+										 TB2[i]->TabStop = 1;
+										 fight = 1;
+										 a = 0;
+									 }
+									 else
+									 {
+										 a = 0;
+									 }
+								 }
+
+							 }
+						 }
+					 }
+
+				 }
+
+			 }
 			 void firstclick(PictureBox^sender)
 			 {
 				 if (color == 1)
@@ -959,7 +1153,7 @@ namespace шашечки {
 									 }
 									 if (((PictureBox^)sender)->TabIndex - t->TabIndex < 0)
 									 {
-										 for (int i = t->TabIndex; i >((PictureBox^)sender)->TabIndex; i = i - 7)
+										 for (int i = t->TabIndex; i > ((PictureBox^)sender)->TabIndex; i = i - 7)
 										 {
 											 TB2[i]->Image = nullptr;
 											 TB2[i]->Text = "";
@@ -979,7 +1173,7 @@ namespace шашечки {
 									 }
 									 if (((PictureBox^)sender)->TabIndex - t->TabIndex < 0)
 									 {
-										 for (int i = t->TabIndex; i >((PictureBox^)sender)->TabIndex; i = i - 9)
+										 for (int i = t->TabIndex; i > ((PictureBox^)sender)->TabIndex; i = i - 9)
 										 {
 											 TB2[i]->Image = nullptr;
 											 TB2[i]->Text = "";
@@ -991,7 +1185,8 @@ namespace шашечки {
 
 							 if (color == 1)
 							 {
-								 proverkanaboiwhite();
+								// proverkanaboiwhite();
+								 proverkanaboisender((PictureBox^)sender);
 								 if (fight != 1)
 								 {
 									 if (((PictureBox^)sender)->TabIndex > 55)
