@@ -140,7 +140,7 @@ namespace шашечки {
 					if (i > 4)
 					{
 						TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
-						TB2[a]->Text = "black";
+						TB2[a]->Text = "black1";
 					}
 				}
 				a++;
@@ -428,7 +428,7 @@ namespace шашечки {
 											 while (TB2[i]->Text != "black" && a && TB2[i]->Text != "white1" && TB2[i]->Text != "white" && TB2[i]->Text != "black1")
 											 {
 												 TB2[i]->BackColor = System::Drawing::Color::Blue;
-												 MessageBox::Show(System::Convert::ToString(i));
+												 
 												 if ((i + 1) % 8 == 0 || i <= 7)
 												 {
 													 a = 0;
@@ -598,7 +598,7 @@ namespace шашечки {
 											 while (TB2[i]->Text != "white" && a && TB2[i]->Text != "black1" && TB2[i]->Text != "black" && TB2[i]->Text != "white1")
 											 {
 												 TB2[i]->BackColor = System::Drawing::Color::Blue;
-												 MessageBox::Show(System::Convert::ToString(i));
+												
 												 if ((i + 1) % 8 == 0 || i <= 7)
 												 {
 													 a = 0;
@@ -1571,13 +1571,24 @@ namespace шашечки {
 								 }
 							 }
 						 }
-						 if (((PictureBox^)sender)->Text == "black1")
+					 }
+					 if (((PictureBox^)sender)->Text == "black1")
+					 {
+						 if (fight == 0)
 						 {
 							 lightingdamka(((PictureBox^)sender));
 							 t = ((PictureBox^)sender);
+							 now = 1;
+						 }
+						 else
+						 {
+							 lightingdamkacanfight(((PictureBox^)sender));
+							 t = ((PictureBox^)sender);
+							 now = 1;
 						 }
 					 }
 				 }
+
 			 };
 
 			 void secondclick(PictureBox^sender)
@@ -1607,7 +1618,7 @@ namespace шашечки {
 								 if (((PictureBox^)sender)->TabIndex < 8)
 								 {
 									 ((PictureBox^)sender)->Text = "black1";
-									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
 								 }
 								 proverkanaboiwhite();
 							 }
@@ -1616,7 +1627,7 @@ namespace шашечки {
 								 if (((PictureBox^)sender)->TabIndex > 55)
 								 {
 									 ((PictureBox^)sender)->Text = "white1";
-									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
 
 								 }
 								 proverkanaboiblack();
@@ -1642,7 +1653,7 @@ namespace шашечки {
 							 t->Image = nullptr;
 							 t->Text = "";
 
-							 if (((PictureBox^)sender)->Text != "white1" && ((PictureBox^)sender)->Text != "balck1")
+							 if (((PictureBox^)sender)->Text != "white1" && ((PictureBox^)sender)->Text != "black1")
 							 {
 								 TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Image = nullptr;
 								 TB2[t->TabIndex + (-t->TabIndex + ((PictureBox^)sender)->TabIndex) / 2]->Text = "";
@@ -1661,7 +1672,7 @@ namespace шашечки {
 									 }
 									 if (((PictureBox^)sender)->TabIndex - t->TabIndex < 0)
 									 {
-										 for (int i = t->TabIndex; i > ((PictureBox^)sender)->TabIndex; i = i - 7)
+										 for (int i = t->TabIndex; i >((PictureBox^)sender)->TabIndex; i = i - 7)
 										 {
 											 TB2[i]->Image = nullptr;
 											 TB2[i]->Text = "";
@@ -1681,7 +1692,7 @@ namespace шашечки {
 									 }
 									 if (((PictureBox^)sender)->TabIndex - t->TabIndex < 0)
 									 {
-										 for (int i = t->TabIndex; i > ((PictureBox^)sender)->TabIndex; i = i - 9)
+										 for (int i = t->TabIndex; i >((PictureBox^)sender)->TabIndex; i = i - 9)
 										 {
 											 TB2[i]->Image = nullptr;
 											 TB2[i]->Text = "";
@@ -1693,14 +1704,14 @@ namespace шашечки {
 
 							 if (color == 1)
 							 {
-								// proverkanaboiwhite();
+								 // proverkanaboiwhite(); 
 								 proverkanaboisender((PictureBox^)sender);
 								 if (fight != 1)
 								 {
 									 if (((PictureBox^)sender)->TabIndex > 55)
 									 {
 										 ((PictureBox^)sender)->Text = "white1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
 
 									 }
 									 color = color*(-1);
@@ -1714,11 +1725,11 @@ namespace шашечки {
 									 if (((PictureBox^)sender)->TabIndex > 55)
 									 {
 										 ((PictureBox^)sender)->Text = "white1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
+										 ((PictureBox^)sender)->Image =
+											 Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
 
 									 }
 									 t = ((PictureBox^)sender);
-									 // t->BackColor = System::Drawing::Color::DarkGray;
 									 allgray();
 									 fight0();
 									 t->TabStop = 1;
@@ -1734,14 +1745,14 @@ namespace шашечки {
 							 }
 							 else
 							 {
-								// proverkanaboiblack();
+								 // proverkanaboiblack(); 
 								 proverkanaboisender((PictureBox^)sender);
 								 if (fight != 1)
 								 {
 									 if (((PictureBox^)sender)->TabIndex < 8)
 									 {
 										 ((PictureBox^)sender)->Text = "black1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
 
 									 }
 									 color = color*(-1);
@@ -1755,7 +1766,7 @@ namespace шашечки {
 									 if (((PictureBox^)sender)->TabIndex < 8)
 									 {
 										 ((PictureBox^)sender)->Text = "black1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
 
 									 }
 									 t = ((PictureBox^)sender);
