@@ -38,15 +38,7 @@ namespace шашечки {
 
 
 	private: System::Windows::Forms::Button^ button2;
-
-
-
-
-	private:
-
-	protected:
-
-	protected:
+	private: System::Windows::Forms::Label^  label1;
 
 	private:
 		/// <summary> 
@@ -61,95 +53,220 @@ namespace шашечки {
 		void InitializeComponent(void)
 		{
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(169, 509);
+			this->button2->Location = System::Drawing::Point(584, 12);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(148, 30);
+			this->button2->Size = System::Drawing::Size(88, 30);
 			this->button2->TabIndex = 2;
-			this->button2->Text = L"button2";
+			this->button2->Text = L"Новая игра";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			// 
+			// label1
+			// 
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->Location = System::Drawing::Point(275, 12);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(193, 23);
+			this->label1->TabIndex = 3;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
-				static_cast<System::Int32>(static_cast<System::Byte>(192)));
+			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ClientSize = System::Drawing::Size(684, 561);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button2);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Name = L"MyForm";
-			this->Text = L"qweqwe";
+			this->Text = L"шашечки";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion 
 		array<PictureBox^>^ TB2 = gcnew array<PictureBox^>(64);
+		array<Label^>^ TB3 = gcnew array<Label^>(16);
+		int now = 0, color = 1, fight = 0;//fight(podboem)
+		PictureBox^ t = nullptr;
+
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e)
 	{
+		now = 0; color = 1; fight = 0;
 		int a = 0;
-
-		for (int i = 0; i < 8; i++)//stroki
+		if (TB2[0] == nullptr)
 		{
-			for (int j = 0; j < 8; j++)//stilbci
+			for (int i = 0; i < 8; i++)//stroki
 			{
-				TB2[a] = gcnew PictureBox();//create new picture box
-				this->Controls->Add(TB2[a]);
-				if (i % 2 == 0)//if delitsa na 2
+				for (int j = 0; j < 8; j++)//stilbci
 				{
-					if (j % 2 == 0)
+					TB2[a] = gcnew PictureBox();//create new picture box
+					this->Controls->Add(TB2[a]);
+					if (i % 2 == 0)//if delitsa na 2
 					{
-						TB2[a]->BackColor = System::Drawing::Color::White;
+						if (j % 2 == 0)
+						{
+							TB2[a]->BackColor = System::Drawing::Color::White;
+						}
+						else
+						{
+							TB2[a]->BackColor = System::Drawing::Color::DarkGray;
+						}
 					}
 					else
 					{
-						TB2[a]->BackColor = System::Drawing::Color::DarkGray;
+						if (j % 2 == 0)
+						{
+							TB2[a]->BackColor = System::Drawing::Color::DarkGray;
+						}
+						else
+						{
+							TB2[a]->BackColor = System::Drawing::Color::White;
+						}
 					}
+					TB2[a]->Size = System::Drawing::Size(55, 55);
+					TB2[a]->TabIndex = a;
+					TB2[a]->TabStop = false;//can li sender shashka bit 1+ 0-
+					TB2[a]->Location = Point(110 + j * 55, 55 + i * 55);
+					TB2[a]->SizeMode = PictureBoxSizeMode::StretchImage;
+					TB2[a]->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBox2_MouseClick);
+					if (TB2[a]->BackColor == System::Drawing::Color::DarkGray)
+					{
+						if (i < 3)
+						{
+							TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
+							TB2[a]->Text = "white";
+						}
+						if (i > 4)
+						{
+							TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
+							TB2[a]->Text = "black";
+						}
+					}
+					a++;
 				}
-				else
+			}
+			int x = 0;
+			for (int i = 0; i < 8; i++)
+			{
+				TB3[i] = gcnew Label();
+				this->Controls->Add(TB3[i]);
+				TB3[i]->AutoSize = true;
+				TB3[i]->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(204)));
+				TB3[i]->Location = System::Drawing::Point(121 + x, 496);
+				TB3[i]->Name = L"label1";
+				TB3[i]->Size = System::Drawing::Size(32, 31);
+				TB3[i]->TabIndex = 3;
+				switch (i)
 				{
-					if (j % 2 == 0)
-					{
-						TB2[a]->BackColor = System::Drawing::Color::DarkGray;
-					}
-					else
-					{
-						TB2[a]->BackColor = System::Drawing::Color::White;
-					}
+				case 0: TB3[i]->Text = L"A"; break;
+				case 1: TB3[i]->Text = L"B"; break;
+				case 2: TB3[i]->Text = L"C"; break;
+				case 3: TB3[i]->Text = L"D"; break;
+				case 4: TB3[i]->Text = L"E"; break;
+				case 5: TB3[i]->Text = L"F"; break;
+				case 6: TB3[i]->Text = L"G"; break;
+				case 7: TB3[i]->Text = L"H"; break;
 				}
-				TB2[a]->Size = System::Drawing::Size(55, 55);
-				TB2[a]->TabIndex = a;
-				TB2[a]->TabStop = false;//can li sender shashka bit 1+ 0-
-				TB2[a]->Location = Point(5 + j * 55, 5 + i * 55);
-				TB2[a]->SizeMode = PictureBoxSizeMode::StretchImage;
-				TB2[a]->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBox2_MouseClick);
-				if (TB2[a]->BackColor == System::Drawing::Color::DarkGray)
+
+				x = x + 55;
+			}
+			int y = 0;
+			for (int i = 8; i < 16; i++)
+			{
+				TB3[i] = gcnew Label();
+				this->Controls->Add(TB3[i]);
+				TB3[i]->AutoSize = true;
+				TB3[i]->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					static_cast<System::Byte>(204)));
+				TB3[i]->Location = System::Drawing::Point(552, 69 + y);
+				TB3[i]->Name = L"label1";
+				TB3[i]->Size = System::Drawing::Size(32, 31);
+				TB3[i]->TabIndex = 3;
+				switch (i)
 				{
-					if (i < 3)
-					{
-						TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
-						TB2[a]->Text = "white";
-					}
-					if (i > 4)
-					{
-						TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
-						TB2[a]->Text = "black1";
-					}
+				case 8: TB3[i]->Text = L"8"; break;
+				case 9: TB3[i]->Text = L"7"; break;
+				case 10: TB3[i]->Text = L"6"; break;
+				case 11: TB3[i]->Text = L"5"; break;
+				case 12: TB3[i]->Text = L"4"; break;
+				case 13: TB3[i]->Text = L"3"; break;
+				case 14: TB3[i]->Text = L"2"; break;
+				case 15: TB3[i]->Text = L"1"; break;
 				}
-				a++;
+
+				y = y + 55;
 			}
 		}
+		else
+		{
+			for (int i = 0; i < 64; i++)//stroki
+			{
+				TB2[i]->Image = nullptr;
+				TB2[i]->Text = "";
+				if (TB2[i]->BackColor == System::Drawing::Color::Blue)
+				{
+					TB2[i]->BackColor = System::Drawing::Color::DarkGray;
+				}
+			}
+
+			for (int i = 0; i < 8; i++)//stroki
+			{
+				for (int j = 0; j < 8; j++)//stilbci
+				{
+					if (TB2[a]->BackColor == System::Drawing::Color::DarkGray)
+					{
+						if (i < 3)
+						{
+							TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
+							TB2[a]->Text = "white";
+						}
+						if (i > 4)
+						{
+							TB2[a]->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
+							TB2[a]->Text = "black";
+						}
+					}
+					a++;
+				}
+			}
+		}
+		label1->Text = "Ход белых";
 	}
 
-			 int now = 0, color = 1, fight = 0;//fight(podboem)
-			 PictureBox^ t = nullptr;
+			 void theend()
+			 {
+				 int w = 0, b = 0;
+				 for (int i = 0; i < 64; i++)
+				 {
+					 if (TB2[i]->Text == "white" || TB2[i]->Text == "white1")
+					 {
+						 w++;
+					 }
+					 if (TB2[i]->Text == "black" || TB2[i]->Text == "black1")
+					 {
+						 b++;
+					 }
+				 }
+				 if (b == 0)
+				 {
+					 MessageBox::Show("Победили белые");
+				 }
+				 if (w == 0)
+				 {
+					 MessageBox::Show("Победили черные");
+				 }
+			 }
 
 			 void allgray()
 			 {
@@ -176,44 +293,56 @@ namespace шашечки {
 				 {
 					 if (((PictureBox^)sender)->TabIndex + 14 <= 63)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black1"))
+						 if ((((PictureBox^)sender)->TabIndex + 7) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "black1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
 						 }
 					 }
 
 					 if (((PictureBox^)sender)->TabIndex - 14 >= 0)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black1"))
+						 if (((((PictureBox^)sender)->TabIndex - 7) + 1) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "black1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
-
 						 }
 					 }
+
 					 if (((PictureBox^)sender)->TabIndex + 18 <= 63)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black1"))
+						 if (((((PictureBox^)sender)->TabIndex + 9) + 1) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "black1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
-
 						 }
 					 }
+
 					 if (((PictureBox^)sender)->TabIndex - 18 >= 0)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black1"))
+						 if ((((PictureBox^)sender)->TabIndex - 9) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black") || (TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "black1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
 						 }
 					 }
@@ -223,42 +352,56 @@ namespace шашечки {
 				 {
 					 if (((PictureBox^)sender)->TabIndex + 14 <= 63)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "white1"))
+						 if ((((PictureBox^)sender)->TabIndex + 7) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex + 7]->Text == "white1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex + 14]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex + 14]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
 						 }
 					 }
 
 					 if (((PictureBox^)sender)->TabIndex - 14 >= 0)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "white1"))
+						 if (((((PictureBox^)sender)->TabIndex - 7) + 1) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex - 7]->Text == "white1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex - 14]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex - 14]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
 						 }
 					 }
+
 					 if (((PictureBox^)sender)->TabIndex + 18 <= 63)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "white1"))
+						 if (((((PictureBox^)sender)->TabIndex + 9) + 1) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex + 9]->Text == "white1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex + 18]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex + 18]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
 						 }
 					 }
+
 					 if (((PictureBox^)sender)->TabIndex - 18 >= 0)
 					 {
-						 if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "white1"))
+						 if ((((PictureBox^)sender)->TabIndex - 9) % 8 != 0)
 						 {
-							 if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+							 if ((TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "white") || (TB2[((PictureBox^)sender)->TabIndex - 9]->Text == "white1"))
 							 {
-								 TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+								 if (TB2[((PictureBox^)sender)->TabIndex - 18]->Image == nullptr)
+								 {
+									 TB2[((PictureBox^)sender)->TabIndex - 18]->BackColor = System::Drawing::Color::Blue;
+								 }
 							 }
 						 }
 					 }
@@ -330,7 +473,7 @@ namespace шашечки {
 
 				 if (((PictureBox^)sender)->TabStop == 1)
 				 {
-					 if (((PictureBox^)sender)->Text=="white1"){
+					 if (((PictureBox^)sender)->Text == "white1") {
 						 int a = 1;
 						 int i = ((PictureBox^)sender)->TabIndex;
 						 while (i < 56 && i % 8 != 0 && a)
@@ -364,6 +507,10 @@ namespace шашечки {
 											 a = 0;
 										 }
 									 }
+								 }
+								 else
+								 {
+									 a = 0;
 								 }
 							 }
 							 else
@@ -405,6 +552,10 @@ namespace шашечки {
 										 }
 									 }
 								 }
+								 else
+								 {
+									 a = 0;
+								 }
 							 }
 							 else
 							 {
@@ -428,7 +579,7 @@ namespace шашечки {
 											 while (TB2[i]->Text != "black" && a && TB2[i]->Text != "white1" && TB2[i]->Text != "white" && TB2[i]->Text != "black1")
 											 {
 												 TB2[i]->BackColor = System::Drawing::Color::Blue;
-												 
+												 MessageBox::Show(System::Convert::ToString(i));
 												 if ((i + 1) % 8 == 0 || i <= 7)
 												 {
 													 a = 0;
@@ -490,6 +641,10 @@ namespace шашечки {
 										 }
 									 }
 								 }
+								 else
+								 {
+									 a = 0;
+								 }
 							 }
 							 else
 							 {
@@ -497,7 +652,7 @@ namespace шашечки {
 							 }
 						 }
 					 }
-					 
+
 					 ///////////////////////////////////////////////////////////////
 					 if (((PictureBox^)sender)->Text == "black1") {
 
@@ -535,6 +690,10 @@ namespace шашечки {
 										 }
 									 }
 								 }
+								 else
+								 {
+									 a = 0;
+								 }
 							 }
 							 else
 							 {
@@ -575,6 +734,10 @@ namespace шашечки {
 										 }
 									 }
 								 }
+								 else
+								 {
+									 a = 0;
+								 }
 							 }
 							 else
 							 {
@@ -598,7 +761,7 @@ namespace шашечки {
 											 while (TB2[i]->Text != "white" && a && TB2[i]->Text != "black1" && TB2[i]->Text != "black" && TB2[i]->Text != "white1")
 											 {
 												 TB2[i]->BackColor = System::Drawing::Color::Blue;
-												
+												 MessageBox::Show(System::Convert::ToString(i));
 												 if ((i + 1) % 8 == 0 || i <= 7)
 												 {
 													 a = 0;
@@ -615,6 +778,7 @@ namespace шашечки {
 											 a = 0;
 										 }
 									 }
+
 								 }
 								 else
 								 {
@@ -660,6 +824,10 @@ namespace шашечки {
 										 }
 									 }
 								 }
+								 else
+								 {
+									 a = 0;
+								 }
 							 }
 							 else
 							 {
@@ -667,7 +835,7 @@ namespace шашечки {
 							 }
 						 }
 					 }
-					
+
 
 				 }
 			 }
@@ -1074,7 +1242,7 @@ namespace шашечки {
 				 }
 			 }
 
-			 void  proverkanaboisender(PictureBox^sender)
+			 void proverkanaboisender(PictureBox^sender)
 			 {
 				 int i = ((PictureBox^)sender)->TabIndex;
 				 if (TB2[i]->Text == "white")
@@ -1276,7 +1444,7 @@ namespace шашечки {
 
 				 }
 				 /////////////////////////////////////////////
-				  i = ((PictureBox^)sender)->TabIndex;
+				 i = ((PictureBox^)sender)->TabIndex;
 				 if (TB2[i]->Text == "black")
 				 {
 					 if ((i < 47) && (i % 8 != 0))
@@ -1588,7 +1756,6 @@ namespace шашечки {
 						 }
 					 }
 				 }
-
 			 };
 
 			 void secondclick(PictureBox^sender)
@@ -1618,19 +1785,21 @@ namespace шашечки {
 								 if (((PictureBox^)sender)->TabIndex < 8)
 								 {
 									 ((PictureBox^)sender)->Text = "black1";
-									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
 								 }
 								 proverkanaboiwhite();
+								 label1->Text = "Ход белых";
 							 }
 							 else
 							 {
 								 if (((PictureBox^)sender)->TabIndex > 55)
 								 {
 									 ((PictureBox^)sender)->Text = "white1";
-									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
 
 								 }
 								 proverkanaboiblack();
+								 label1->Text = "Ход черных";
 							 }
 						 }
 					 }
@@ -1704,14 +1873,19 @@ namespace шашечки {
 
 							 if (color == 1)
 							 {
-								 // proverkanaboiwhite(); 
+								 if (((PictureBox^)sender)->TabIndex > 55)
+								 {
+									 ((PictureBox^)sender)->Text = "white1";
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
+
+								 }
 								 proverkanaboisender((PictureBox^)sender);
 								 if (fight != 1)
 								 {
 									 if (((PictureBox^)sender)->TabIndex > 55)
 									 {
 										 ((PictureBox^)sender)->Text = "white1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
 
 									 }
 									 color = color*(-1);
@@ -1719,14 +1893,14 @@ namespace шашечки {
 									 allgray();
 									 fight0();
 									 proverkanaboiblack();
+									 label1->Text = "Ход черных";
 								 }
 								 else
 								 {
 									 if (((PictureBox^)sender)->TabIndex > 55)
 									 {
 										 ((PictureBox^)sender)->Text = "white1";
-										 ((PictureBox^)sender)->Image =
-											 Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white1.png");
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/white11.png");
 
 									 }
 									 t = ((PictureBox^)sender);
@@ -1745,32 +1919,36 @@ namespace шашечки {
 							 }
 							 else
 							 {
-								 // proverkanaboiblack(); 
+								 if (((PictureBox^)sender)->TabIndex > 55)
+								 {
+									 ((PictureBox^)sender)->Text = "black1";
+									 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
+
+								 }
 								 proverkanaboisender((PictureBox^)sender);
 								 if (fight != 1)
 								 {
 									 if (((PictureBox^)sender)->TabIndex < 8)
 									 {
 										 ((PictureBox^)sender)->Text = "black1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
-
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
 									 }
 									 color = color*(-1);
 									 now = 0;
 									 allgray();
 									 fight0();
 									 proverkanaboiwhite();
+									 label1->Text = "Ход белых";
 								 }
 								 else
 								 {
 									 if (((PictureBox^)sender)->TabIndex < 8)
 									 {
 										 ((PictureBox^)sender)->Text = "black1";
-										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black1.png");
-
+										 ((PictureBox^)sender)->Image = Image::FromFile("C:/Users/user/Documents/Visual Studio 2017/Projects/шашечки/images/black11.png");
 									 }
 									 t = ((PictureBox^)sender);
-									 t->BackColor = System::Drawing::Color::DarkGray;
+									 allgray();
 									 fight0();
 									 t->TabStop = 1;
 									 if (((PictureBox^)sender)->Text == "black1")
@@ -1786,7 +1964,7 @@ namespace шашечки {
 						 }
 					 }
 				 }
-
+				 theend();
 			 }
 
 	private: System::Void pictureBox2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
